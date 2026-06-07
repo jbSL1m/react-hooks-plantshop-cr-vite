@@ -24,9 +24,9 @@ function PlantPage() {
 
   return (
     <main>
-      <NewPlantForm />
-      <Search />
-      <PlantList />
+      <NewPlantForm onAddPlant={(plant) => setPlants([...plants, plant])} />
+      <Search searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <PlantList plants={displayedPlants} />
     </main>
   );
 }
