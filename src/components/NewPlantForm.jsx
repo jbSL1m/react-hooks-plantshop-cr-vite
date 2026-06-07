@@ -1,10 +1,10 @@
 import React, { useState }from "react";
 
-function NewPlantForm() {
+function NewPlantForm({ onAddPlant }) {
   const API_URL = "http://localhost:6001/plants";
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +12,7 @@ function NewPlantForm() {
     fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, image, price: parseFloat(price)}),
+      body: JSON.stringify({ name, image, price: price.toString() }),
     })
       .then((response) => {// Check if the response is ok
         if (!response.ok) { throw new Error("Failed to Post Plant"); }
@@ -22,7 +22,7 @@ function NewPlantForm() {
         onAddPlant(newPlant); // Call the onAddPlant prop to update the plant list
         setName("");// Clear the form fields after successful submission
         setImage("");
-        setPrice(0);
+        setPrice("");
       })
       .catch((error) => {
         console.error("Error adding plant:", error);
